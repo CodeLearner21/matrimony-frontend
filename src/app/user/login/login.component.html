@@ -1,3 +1,18 @@
-<p>
-  login works!
-</p>
+<div class="form">
+  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+    <div class="form-group">
+      <label for="inputEmail">User Name</label>
+      <input type="text" class="form-control" id="inputUserId" placeholder="" formControlName="userName">
+    </div>
+    <div class="form-group">
+      <label for="inputPassword">Password</label>
+      <input type="password" class="form-control" id="inputPassword" placeholder="" formControlName="password">
+    </div>
+    <div class="form-group button-section">
+      <button class="btn btn-primary" type="submit">Login</button>
+    </div>
+    <div class="form-group link">
+      <a href="/">Create Account</a>
+    </div>
+  </form>
+</div>

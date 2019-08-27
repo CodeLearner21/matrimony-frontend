@@ -1,3 +1,6 @@
+import { LoadingService } from './_services/loading.service';
+import { BeforeLoginGuard } from './guards/before-login.guard';
+import { AuthService } from './_services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -8,7 +11,12 @@ import { RegisterComponent } from './user/register/register.component';
 import { LoginComponent } from './user/login/login.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+const myRoute = [
+  { path: '/login', component: LoginComponent, canActivate: [BeforeLoginGuard] }
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,9 +28,12 @@ import { FooterComponent } from './partials/footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [AuthService, BeforeLoginGuard, LoadingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

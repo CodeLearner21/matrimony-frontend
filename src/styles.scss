@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+$button-color: #ea4687;
+$button-hover-color:#0069d9;
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  background-image: url("./assets/images/bakground_img2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  width: 320px;
+  padding: 34px;
+  background-color: white;
+  box-shadow: 1px 0px 10px rgba(0, 0, 0, .5);
+  border-radius: 25px;
+  .button-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn-primary {
+      background-color: $button-color;
+      border: none;
+
+      &:hover {
+        background-color: $button-hover-color;
+      }
+
+    }
+  }
+
+  .link {
+    text-align: center;
+  }
+}
