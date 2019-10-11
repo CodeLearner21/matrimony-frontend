@@ -1,3 +1,4 @@
+import { ProfileComponent } from './user/profile/profile.component';
 import { BeforeLoginGuard } from './guards/before-login.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,6 +12,9 @@ const routes: Routes = [
   },
   {
     path: 'user/login', component: LoginComponent
+  },
+  {
+    path: 'user/profile', component: ProfileComponent, canActivate: [BeforeLoginGuard]
   },
   {
     path: 'home', component: HomeComponent, canActivate: [BeforeLoginGuard]

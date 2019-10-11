@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { InputControlService } from './_services/input-control.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,8 +6,6 @@ import { InputControlService } from './_services/input-control.service';
 })
 export class AppComponent {
   title = 'matrimony-frontend';
-  inputTextbox: any[];
-  constructor(private inputConrol: InputControlService) {
-    this.inputTextbox = inputConrol.getInputFromFeilds();
+  constructor() {
   }
 }

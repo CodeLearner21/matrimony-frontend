@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class LoadingService {
-  isLoading = new Subject<boolean>();
   constructor() { }
   show() {
     const addClass = document.getElementById('addclass');

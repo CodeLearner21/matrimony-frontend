@@ -1,0 +1,50 @@
+<div class="form">
+  <form [formGroup]="profileForm" (ngSubmit)="addProfile(profileForm)">
+    <div class="form-row form-group">
+      <div class="col-md-5">
+        <label>Full Name</label>
+      </div>
+      <div class="col-md-7">
+        <input class="form-control" formControlName='fullName' id="fullName" type="text" value="">
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <div class="col-md-5">
+        <label>Birthdate</label>
+      </div>
+      <div class="col-md-7">
+        <input class="form-control" formControlName='birthdate' id="birthdate" type="text" value="">
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <div class="col-md-5">
+        <label>Gender</label>
+      </div>
+      <div class="col-md-7">
+        <select class="custom-select mr-sm-2" id="gender" formControlName='gender'>
+          <option selected value="">--select--</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <div class="col-md-5">
+        <label>Portfolio Type</label>
+      </div>
+      <div class="col-md-7">
+        <select class="custom-select mr-sm-2" formControlName='portfolioTypeId' id="portfolioTypeId">
+          <option selected value="">--select--</option>
+          <option *ngFor="let types of portfolioTypes" value="{{types.id}}">{{types.name}}</option>
+        </select>
+      </div>
+    </div>  
+    <input class="form-control" id="userId" formControlName='userId' type="hidden" value="">
+    <div class="form-group button-section">
+      <button class="btn btn-primary" type="submit">
+        <span id="addclass" class="spinner-border-sm" role="status" aria-hidden="true"></span>
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

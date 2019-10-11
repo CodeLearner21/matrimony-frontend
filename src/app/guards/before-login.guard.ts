@@ -16,9 +16,13 @@ export class BeforeLoginGuard implements CanActivate {
       console.log('AuthGuardcanActivate called');
       if (this.authService.isLoggedIn()) {
         return true;
-      } else {
-      this.router.navigate(['user/login']);
+      } 
+        this.router.navigate(['user/login'], {
+          queryParams: {
+            returnUrl: state.url
+          }
+        });
         return false;
-      }
+      
   }
 }
