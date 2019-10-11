@@ -1,3 +1,5 @@
+import { ProfileComponent } from './user/profile/profile.component';
+import { BeforeLoginGuard } from './guards/before-login.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -12,14 +14,17 @@ const routes: Routes = [
     path: 'user/login', component: LoginComponent
   },
   {
-    path: 'home', component: HomeComponent
+    path: 'user/profile', component: ProfileComponent, canActivate: [BeforeLoginGuard]
+  },
+  {
+    path: 'home', component: HomeComponent, canActivate: [BeforeLoginGuard]
   },
   {
     path: '', redirectTo: 'user/register', pathMatch: 'full'
   },
   {
     path: '**', redirectTo: 'user/register', pathMatch: 'full'
-  }  
+  }
 ];
 
 @NgModule({

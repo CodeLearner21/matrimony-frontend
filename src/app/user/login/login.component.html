@@ -1,3 +1,34 @@
-<p>
-  login works!
-</p>
+<div class="form">
+  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+    <div class="form-group" [ngClass]="{'has-error': ((loginForm.get('email').touched  ||
+    loginForm.get('email').dirty) && loginForm.get('email').errors)}">
+      <label for="inputEmail">Email ID</label>
+      <input type="text" class="form-control" id="email" placeholder="" formControlName="email" value="" />
+      <span class="help-block" *ngIf="((loginForm.get('email').touched  || loginForm.get('email').dirty) &&
+      loginForm.get('email').errors)">
+        <span *ngIf="loginForm.get('email').errors.required">
+          Email is required
+        </span>
+      </span>
+    </div>
+
+    <div class="form-group" [ngClass]="{'has-error': ((loginForm.get('password').touched  ||
+    loginForm.get('password').dirty) && loginForm.get('password').errors)}">
+      <label for="inputPassword">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="" formControlName="password">
+      <span class="help-block" *ngIf="((loginForm.get('password').touched  || loginForm.get('password').dirty) &&
+      loginForm.get('password').errors)">
+        <span *ngIf="loginForm.get('password').errors.required">
+          password is required
+        </span>
+      </span>
+    </div>
+
+    <div class="form-group button-section">
+      <button class="btn btn-primary" type="submit">Login</button>
+    </div>
+    <div class="form-group link">
+      <a href="/">Create Account</a>
+    </div>
+  </form>
+</div>
