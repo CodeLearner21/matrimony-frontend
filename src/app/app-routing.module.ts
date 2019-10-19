@@ -1,10 +1,10 @@
 import { ProfileComponent } from './user/profile/profile.component';
-import { BeforeLoginGuard } from './guards/before-login.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
+import { AuthGuardService } from './_auth/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -14,10 +14,10 @@ const routes: Routes = [
     path: 'user/login', component: LoginComponent
   },
   {
-    path: 'user/profile', component: ProfileComponent, canActivate: [BeforeLoginGuard]
+    path: 'user/profile', component: ProfileComponent, canActivate: [AuthGuardService]
   },
   {
-    path: 'home', component: HomeComponent, canActivate: [BeforeLoginGuard]
+    path: 'home', component: HomeComponent, canActivate: [AuthGuardService]
   },
   {
     path: '', redirectTo: 'user/register', pathMatch: 'full'

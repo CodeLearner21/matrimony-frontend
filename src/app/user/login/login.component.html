@@ -1,34 +1,44 @@
-<div class="form">
-  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
-    <div class="form-group" [ngClass]="{'has-error': ((loginForm.get('email').touched  ||
-    loginForm.get('email').dirty) && loginForm.get('email').errors)}">
-      <label for="inputEmail">Email ID</label>
-      <input type="text" class="form-control" id="email" placeholder="" formControlName="email" value="" />
-      <span class="help-block" *ngIf="((loginForm.get('email').touched  || loginForm.get('email').dirty) &&
-      loginForm.get('email').errors)">
-        <span *ngIf="loginForm.get('email').errors.required">
-          Email is required
-        </span>
-      </span>
+<div class="login-form-wrapper">
+  <div class="section-header">
+    <h1>Sign in</h1>
+  </div>
+  <div *ngIf="isRegsiter" class="alert alert-success">Successfully Register! please sign-in to continue.</div>
+  <div *ngIf="hasLoginError" class="alert alert-danger">{{ loginErrorMsg }}</div>
+  <form *ngIf="!isLoggedIn" [formGroup]="loginForm" (ngSubmit)="onSignIn()">
+    <div class="form-group">
+      <label for="email">Email ID</label>
+      <input formControlName="email"
+        type="text" 
+        class="form-control" 
+        id="email" 
+        placeholder=""/>
+      <div *ngIf="email.touched && email.errors" class="alert alert-danger">
+        <small *ngIf="email.errors.required">Enter valid email!</small>
+      </div>
     </div>
 
-    <div class="form-group" [ngClass]="{'has-error': ((loginForm.get('password').touched  ||
-    loginForm.get('password').dirty) && loginForm.get('password').errors)}">
-      <label for="inputPassword">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="" formControlName="password">
-      <span class="help-block" *ngIf="((loginForm.get('password').touched  || loginForm.get('password').dirty) &&
-      loginForm.get('password').errors)">
-        <span *ngIf="loginForm.get('password').errors.required">
-          password is required
-        </span>
-      </span>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input formControlName="password" 
+        type="password" 
+        class="form-control" 
+        id="password" 
+        placeholder=""/>
+      <div *ngIf="password.touched && password.errors" class="alert alert-danger">
+        <small *ngIf="password.errors.required">Enter valid password!</small>
+      </div>
     </div>
 
     <div class="form-group button-section">
-      <button class="btn btn-primary" type="submit">Login</button>
+      <button class="btn btn-primary" type="submit">Sign-in</button>
     </div>
     <div class="form-group link">
-      <a href="/">Create Account</a>
+      <a routerLink="user/register">Create Account</a>
     </div>
   </form>
+
+  <div *ngIf="isLoggedIn">
+    You are already logged in!
+    <p>Please <a href="Javascript:void" (click)="onSignOut()">Sign out</a> to login with another account</p>
+  </div>
 </div>

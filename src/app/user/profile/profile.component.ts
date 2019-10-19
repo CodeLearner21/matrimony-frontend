@@ -1,4 +1,4 @@
-import { AuthService } from './../../_services/auth.service';
+import { AuthService } from '../../_auth/auth.service';
 import { MatrimonyService } from './../../_services/matrimony.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';

@@ -1,4 +1,4 @@
-import { AuthService } from './../_services/auth.service';
+import { AuthService } from '../_auth/auth.service';
 
 export class CustomValidator {
     constructor(private auth: AuthService) {}

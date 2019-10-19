@@ -1,70 +1,48 @@
-<div class="form">
-  <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
-
+<div class="form-wrapper">
+  <div *ngIf="hasRegiterError" class="alert alert-danger">{{ registerErrorMsg }}</div>
+  <form class="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">    
     <div class="form-row form-group">
-      <div class="col-md-5">
-        <label>First name</label>
-      </div>
-      <div class="col-md-7">
-        <input class="form-control" formControlName="firstName" id="firstname" type="text" value=""
-          [ngClass]="{ 'is-invalid': form.firstName.errors && (form.firstName.dirty || form.firstName.touched )}" />
-        <div *ngIf=" form.firstName.errors && (form.firstName.dirty || form.firstName.touched )" class="invalid-feedback">
-          <div *ngIf="form.firstName.errors.required">First Name is required</div>
-        </div>
-      </div>
+      <label>First Name</label>
+      <input formControlName="firstName" class="form-control" id="firstname" type="text" />
+      <small *ngIf="isControlHasError('firstName','required')" class="bubble-alert pos-top">First name is required!</small>
+      <small *ngIf="isControlHasError('firstName','minlength')" class="bubble-alert pos-left">Minimum {{ firstName.errors.minlength.requiredLength }} characters required</small>
     </div>
 
     <div class="form-row form-group">
-      <div class="col-md-5">
-        <label>Last name</label>
-      </div>
-      <div class="col-md-7">
-        <input class="form-control" formControlName='lastName' id="lastname" type="text" value=""
-          [ngClass]="{ 'is-invalid': form.lastName.errors && (form.lastName.dirty || form.lastName.touched) }" />
-        <div *ngIf="form.lastName.errors && (form.lastName.dirty || form.lastName.touched )" class="invalid-feedback">
-          <div *ngIf="form.lastName.errors.required">last Name is required</div>
-        </div>
-      </div>
+      <label>Last Name</label>
+      <input formControlName="lastName" class="form-control" id="lastname" type="text" />
+      <small *ngIf="isControlHasError('lastName','required')" class="alert alert-danger">Last name is required!</small>
+      <small *ngIf="isControlHasError('lastName','minlength')" class="alert alert-danger">Minimum
+        {{ lastName.errors.minlength.requiredLength }} characters required</small>
     </div>
 
     <div class="form-row form-group">
-      <div class="col-md-5">
-        <label>Email Address</label>
-      </div>
-      <div class="col-md-7">
-        <input class="form-control" formControlName='email' id="email" type="text" value=""
-          [ngClass]="{ 'is-invalid':form.email.errors && (form.email.dirty || form.email.touched)}" />
-        <div *ngIf=" form.email.errors && (form.email.dirty || form.email.touched)" class="invalid-feedback">
-          <div *ngIf="form.email.errors.required">Email is required</div>
-          <div *ngIf="form.email.errors.email">Email should be in email format</div>
-        </div>
-      </div>
+      <label>Email</label>
+      <input formControlName="email" class="form-control" id="email" type="email" />
+      <small *ngIf="isControlHasError('email','required')" class="alert alert-danger">Email is required!</small>
+      <small *ngIf="isControlHasError('email','email')" class="alert alert-danger">Invalid email address!</small>
     </div>
 
     <div class="form-row form-group">
-      <div class="col-md-5">
-        <label>Password</label>
-      </div>
-      <div class="col-md-7">
-        <input class="form-control" formControlName='password' id="password" type="password" value=""
-          [ngClass]="{ 'is-invalid':  form.password.errors && (form.password.dirty || form.password.touched) }" />
-        <div *ngIf=" form.password.errors && (form.password.dirty || form.password.touched)" class="invalid-feedback">
-          <div *ngIf="form.password.errors.required">Password is required</div>
-          <div *ngIf="form.password.errors.minlength">Password must be at least 8 characters</div>
-        </div>
-      </div>
+      <label>Password</label>
+      <input formControlName="password" class="form-control" id="password" type="password" />
+      <small *ngIf="isControlHasError('password','required')" class="alert alert-danger">Password is required!</small>
+      <small *ngIf="isControlHasError('password','minlength')" class="alert alert-danger">Minimum
+        {{ password.errors.minlength.requiredLength }} length required!</small>
     </div>
+    
 
     <div class="form-group button-section">
       <!-- <button  class="btn btn-primary" type="button" [disabled]='!registerForm.valid'></button><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">Register</span></button> -->
-      <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">
-        <span id="addclass" class="spinner-border-sm" role="status" aria-hidden="true"></span>
+      <button class="btn btn-primary" type="submit">
         Register
+        <div *ngIf="showSubmitSpinner" class="spinner-border spinner-border-sm" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </button>
-    </div>
-
-    <div class="form-group link">
-      <a routerLink="/user/login" href="/">Alredy an user</a>
+      <div class="form-group link">
+        <a routerLink="/user/login" href="/">Alredy an user</a>
+      </div>
     </div>
   </form>
 </div>

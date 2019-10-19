@@ -1,0 +1,11 @@
+<div *ngIf="User" class="user-profile-menu">
+    <button (click)="toggleDropdown()" class="btn user-initial rounded-circle">{{ nameInitials(User.firstName, User.lastName) }}</button>
+    <div *ngIf="show" class="dropdown shadow">
+        <div>
+            Registration code: {{ User.userName }}
+        </div>
+        <div>
+            <button (click)="logout()" class="btn btn-sm btn-block btn-primary">Logout</button>
+        </div>
+    </div>
+</div>

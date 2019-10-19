@@ -9,36 +9,37 @@ html {
   background-image: url("./assets/images/bakground_img2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: fixed;  
 }
 
-.form {
+.bubble-alert {
   position: absolute;
-  top: 50%;
-  right: 30px;
-  transform: translateY(-50%);
-  width: 320px;
-  padding: 34px;
-  background-color: white;
-  box-shadow: 1px 0px 10px rgba(0, 0, 0, .5);
-  border-radius: 25px;
-  .button-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .btn-primary {
-      background-color: $button-color;
-      border: none;
-
-      &:hover {
-        background-color: $button-hover-color;
-      }
-
-    }
+  
+  &.pos-left {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;  
+    transform: translateX(-100%);
   }
 
-  .link {
-    text-align: center;
+  &.pos-right {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    transform: translateX(100%);
   }
+
+  &.pos-top {
+    left: 0%;
+    transform: translateX(-50%);
+    top: 0;
+    transform: translateY(-100%);
+  }
+
+}
+
+.shadow {
+  -webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.28);
+  -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.28);
+  box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.28);
 }

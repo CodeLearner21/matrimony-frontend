@@ -1,23 +1,22 @@
-import { AuthService } from '../_services/auth.service';
-import { environment } from './../../environments/environment';
-import { Injectable} from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler } from '@angular/common/http';
+import { AuthService } from '../_auth/auth.service';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor(private auth: AuthService) { }
-  intercept(request: HttpRequest<any>, next: HttpHandler) {
-    const isApiUrl = request.url.startsWith(`${environment.api.matrimony}`);
-    if(this.auth.isLoggedIn && isApiUrl){
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.auth.getToken()}`
-      }
-      });
-      return next.handle(request);
+@Injectable()
+export class TokenInterceptor implements HttpInterceptor {
+
+    constructor(public auth: AuthService) {
     }
-  }
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        request = request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${this.auth.authToken}`
+            }
+        });
+
+        return next.handle(request);
+    }
 }

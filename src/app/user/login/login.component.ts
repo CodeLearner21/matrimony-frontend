@@ -1,4 +1,4 @@
-import { AuthService } from './../../_services/auth.service';
+import { AuthService } from '../../_auth/auth.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,35 +10,67 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm = new FormGroup({
-    email: new FormControl('', [ Validators.required]),
-    password: new FormControl('',  [ Validators.required])
-  });
-  returnUrl: string;
-  submitted = false;
-  constructor(private auth: AuthService, private router: Router, private activateRout: ActivatedRoute) {
+
+  loginForm: FormGroup;
+  hasLoginError = false;
+  loginErrorMsg = '';
+  redirectUrl: string;
+  isLoggedIn = false;
+  isRegsiter = false; 
+
+  constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    if (this.activateRout.snapshot.queryParams['returnUrl'] === undefined) {
-      this.returnUrl = '/home';
-      console.log('retureurl value : ', this.returnUrl);
+    this.route.queryParams.subscribe((params) => {
+      this.redirectUrl = params['returnUrl'] || '/home';
+      this.isRegsiter = params['registerSuccess'] || false;
+    });
+    if (this.auth.authenticate()) {
+      this.isLoggedIn = true;
     } else {
-      this.returnUrl = this.activateRout.snapshot.queryParams['returnUrl'];
-      console.log('retureurl value : ', this.returnUrl);
+      this.isLoggedIn = false;
+      this.initLoginForm();
     }
-
   }
 
-  login(form) {
-    if (this.loginForm.invalid) {
-      return;
+  initLoginForm() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [
+        Validators.required
+      ]),
+      password: new FormControl('', [
+        Validators.required
+      ])
+    });
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  onSignIn() {
+    if (this.email.invalid || this.password.invalid) {
+      this.hasLoginError = true;
+      this.loginErrorMsg = 'Please enter valid email and password!';
+      return false;
     }
-    const loginFormValues = form.value;
-    console.log('form values',loginFormValues);
-    this.auth.login(loginFormValues.email, loginFormValues.password).subscribe((res) => {
-      console.log('code', HttpResponse);
-      this.router.navigateByUrl(this.returnUrl);
-     });
+
+    const credentials = { email: this.email.value, password: this.password.value };
+    this.auth.login(credentials).subscribe((result) => {
+      if(result) {
+        this.router.navigate([this.redirectUrl]);
+      }
+      this.hasLoginError = true;
+      this.loginErrorMsg = 'Unable to login! please enter valid email and password';
+    });
+  }
+
+  onSignOut() {
+    this.auth.logout();
   }
 }
